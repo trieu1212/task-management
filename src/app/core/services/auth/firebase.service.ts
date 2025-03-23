@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from '@angular/fire/auth'
 import { Database, ref, set } from '@angular/fire/database';
 import { Router } from '@angular/router';
-import { from, Observable } from 'rxjs';
+import { catchError, from, Observable, of } from 'rxjs';
 import { IUser } from '../../models/user.interface';
 
 @Injectable({
@@ -31,6 +31,11 @@ export class FirebaseService {
           }
         )
       })
+    ).pipe(
+      catchError(err => {
+        console.log('Register err: ', err)
+        return of()
+      })
     )
   }
   login(email: string, password: string): Observable<UserCredential> {
@@ -44,6 +49,11 @@ export class FirebaseService {
         localStorage.setItem('user', JSON.stringify(data))
         return userCredential
       })
+    ).pipe(
+      catchError(err => {
+        console.log('Login err: ', err)
+        return of()
+      })
     )
   }
 
@@ -53,25 +63,31 @@ export class FirebaseService {
         localStorage.removeItem('user')
         this.router.navigate(['/login'])
       })
+    ).pipe(
+      catchError(err => {
+        console.log('Logout err: ', err)
+        return of()
+      })
     )
   }
 
   getCurrentUser(): Observable<User | null> {
-    return new Observable((ob) => {
-      this.auth.onAuthStateChanged(user => {
+    return new Observable((observer) => {
+      const unsubscribe = this.auth.onAuthStateChanged(user => {
         if (user) {
           const data: Pick<IUser, "id" | "email" | "name"> = {
             id: user.uid,
             name: user.displayName || "",
             email: user.email || "",
-          }
-          localStorage.setItem('user', JSON.stringify(data))
+          };
+          localStorage.setItem('user', JSON.stringify(data));
         } else {
-          localStorage.removeItem('user')
+          localStorage.removeItem('user');
         }
-        ob.next(user)
-      })
-    })
+        observer.next(user);
+      });
+      return { unsubscribe };
+    });
   }
 
   isLoggedIn(): boolean {
