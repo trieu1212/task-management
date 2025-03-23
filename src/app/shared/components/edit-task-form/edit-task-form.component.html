@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 mat-dialog-title>Edit Task</h2>
+  <div mat-dialog-content>
+    <form [formGroup]="taskForm" class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="To Do">
+            To Do
+          </mat-option>
+          <mat-option value="In Progress">
+            In Progress
+          </mat-option>
+          <mat-option value="Done">
+            Done
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()" [disabled]="taskForm.invalid">
+      Save
+    </button>
+  </div>
+  </div>
+  

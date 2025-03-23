@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { TaskListComponent } from './features/task/task-list/task-list.component';
 import { FillterTaskPipe } from './shared/pipe/fillter-task.pipe';
+import { EditTaskFormComponent } from './shared/components/edit-task-form/edit-task-form.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FillterTaskPipe } from './shared/pipe/fillter-task.pipe';
     AddFormComponent,
     RegisterComponent,
     TaskListComponent,
-    FillterTaskPipe
+    FillterTaskPipe,
+    EditTaskFormComponent
   ],
   imports: [
     NgIf,
@@ -69,6 +71,7 @@ import { FillterTaskPipe } from './shared/pipe/fillter-task.pipe';
     provideDatabase(() => getDatabase()),
     provideHttpClient(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +46,18 @@ export class ApiService {
           ...response[key],
           id:key
         })).filter(task => task[field] === value)
+      })
+    )
+  }
+
+  deleteManyFromFieldName<T extends Record<string, any>>(endpoint:string, field: keyof T, value: any): Observable<void> {
+    return this.getByFieldName<T>(endpoint, field, value).pipe(
+      mergeMap(items => {
+        const deleteReq = items.map(item => this.delete<T>(endpoint, item['id']))
+        return forkJoin(deleteReq)
+      }),
+      map(() => {
+        console.log('success')
       })
     )
   }

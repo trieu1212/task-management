@@ -1,41 +1,41 @@
-<div class="task-container">
-    <div class="header">
+<div class="container">
+    <div class="container__header">
       <button mat-button (click)="getBack()">BACK</button>
       <h2>Project {{project.name}}</h2>
       <button mat-button (click)="openAddDialog()">Add new task</button>
     </div>
       <!-- To Do Column -->
-      <mat-card class="task-column">
-        <mat-card-header class="status-header to-do">
+      <mat-card class="container__column">
+        <mat-card-header class="container__column__status-header to-do">
           <mat-card-title>To Do</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="tasks | filterTask:'To Do'" class="mat-elevation-z8">
+          <table mat-table [dataSource]="tasks | fillterTask:'To Do'" class="mat-elevation-z8">
       
             <!-- Tiêu đề -->
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef> Title </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.title }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.name }} </td>
             </ng-container>
       
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.description }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.description }} </td>
             </ng-container>
       
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.status }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.status }} </td>
             </ng-container>
   
             <ng-container matColumnDef="assignee">
               <th mat-header-cell *matHeaderCellDef> Assignee </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.assignee?.email || "" }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.assignee?.email || "" }} </td>
             </ng-container>
   
             <ng-container matColumnDef="createdAt">
               <th mat-header-cell *matHeaderCellDef> Created At </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ formatDate(task.createdAt) }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ formatDate(task.createdAt) }} </td>
             </ng-container>
             
             <ng-container matColumnDef="actions">
@@ -56,37 +56,37 @@
       </mat-card>
     
       <!-- In Progress Column -->
-      <mat-card class="task-column">
-        <mat-card-header class="status-header in-progress">
+      <mat-card class="container__column">
+        <mat-card-header class="container__column__status-header in-progress">
           <mat-card-title>In Progress</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="tasks | filterTask:'In Progress'" class="mat-elevation-z8">
+          <table mat-table [dataSource]="tasks | fillterTask:'In Progress'" class="mat-elevation-z8">
       
             <!-- Tiêu đề -->
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef> Title </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.title }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.name }} </td>
             </ng-container>
       
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.description }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.description }} </td>
             </ng-container>
       
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.status }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.status }} </td>
             </ng-container>
   
             <ng-container matColumnDef="assignee">
               <th mat-header-cell *matHeaderCellDef> Assignee </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.assignee?.email || "" }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.assignee?.email || "" }} </td>
             </ng-container>
   
             <ng-container matColumnDef="createdAt">
               <th mat-header-cell *matHeaderCellDef> Created At </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ formatDate(task.createdAt) }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ formatDate(task.createdAt) }} </td>
             </ng-container>
             
             <ng-container matColumnDef="actions">
@@ -107,37 +107,37 @@
       </mat-card>
     
       <!-- Done Column -->
-      <mat-card class="task-column">
-        <mat-card-header class="status-header done">
+      <mat-card class="container__column">
+        <mat-card-header class="container__column__status-header done">
           <mat-card-title>Done</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="tasks | filterTask:'Done'" class="mat-elevation-z8">
+          <table mat-table [dataSource]="tasks | fillterTask:'Done'" class="mat-elevation-z8">
       
             <!-- Tiêu đề -->
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef> Title </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.title }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.name }} </td>
             </ng-container>
       
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.description }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.description }} </td>
             </ng-container>
       
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.status }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.status }} </td>
             </ng-container>
   
             <ng-container matColumnDef="assignee">
               <th mat-header-cell *matHeaderCellDef> Assignee </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ task.assignee?.email || "" }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ task.assignee?.email || "" }} </td>
             </ng-container>
   
             <ng-container matColumnDef="createdAt">
               <th mat-header-cell *matHeaderCellDef> Created At </th>
-              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="task-item"> {{ formatDate(task.createdAt) }} </td>
+              <td mat-cell *matCellDef="let task" (click)="openEditDialog(task.id)" class="container__column__item"> {{ formatDate(task.createdAt) }} </td>
             </ng-container>
             
             <ng-container matColumnDef="actions">

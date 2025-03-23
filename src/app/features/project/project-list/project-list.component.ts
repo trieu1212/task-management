@@ -6,6 +6,8 @@ import { IUser } from '../../../core/models/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFormComponent } from '../../../shared/components/add-form/add-form.component';
 import { Router } from '@angular/router';
+import { TaskService } from '../../../core/services/task/task.service';
+import { catchError, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
@@ -20,6 +22,7 @@ export class ProjectListComponent implements OnInit {
   username: string = ''
 
   constructor(
+    private taskService: TaskService,
     private projectService: ProjectService,
     private userService: UserService,
     private dialog: MatDialog,
@@ -82,9 +85,21 @@ export class ProjectListComponent implements OnInit {
 
   deleteProject(event: Event, projectId: string) {
     event.stopPropagation()
-    this.projectService.deleteProject(projectId).subscribe(data => {
-      alert('Delete project successfuly!')
-      this.getAllProject()
-    })
+    const isConfirmed = window.confirm("Do you want to delete this project?")
+    if(isConfirmed) {
+      this.projectService.deleteProject(projectId).pipe(
+        switchMap(() => {
+          return this.taskService.deleteManyTasksWithProjectId(projectId)
+        }),
+        catchError(err => {
+          return of()
+        })
+      ).subscribe({
+        next: () => {
+          alert('Delete successfully!')
+          this.getAllProject()
+        }
+      })
+    } 
   }
 }

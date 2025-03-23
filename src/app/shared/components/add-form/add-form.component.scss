@@ -1,28 +1,32 @@
 :host {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 10px;
+
+  button {
+    min-width: 80px;
   }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  mat-dialog-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  mat-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 16px 0;
-    
-    button {
-      min-width: 80px;
-    }
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+h1{
+  margin-bottom: 10px;
+}
