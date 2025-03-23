@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from '@angular/fire/auth'
 import { Database, ref, set } from '@angular/fire/database';
 import { Router } from '@angular/router';
-import { catchError, from, Observable, of } from 'rxjs';
+import { catchError, concatMap, from, Observable, of } from 'rxjs';
 import { IUser } from '../../models/user.interface';
 
 @Injectable({
@@ -18,25 +18,27 @@ export class FirebaseService {
 
   register(name: string, email: string, password: string): Observable<void> {
     return from(
-      createUserWithEmailAndPassword(this.auth, email, password).then((userCredential) => {
-        const userId = userCredential.user.uid
-        return set(
+      createUserWithEmailAndPassword(this.auth, email, password)
+    ).pipe(
+      concatMap((userCredential) => {
+        const userId = userCredential.user.uid;
+        return from(set(
           ref(this.db, 'users/' + userId),
           {
             id: userId,
             name: name,
             email: email,
-            password: password,
             createdAt: new Date().toISOString()
           }
-        )
-      })
-    ).pipe(
+        )).pipe(
+          concatMap(() => from(signOut(this.auth))) 
+        );
+      }),
       catchError(err => {
-        console.log('Register err: ', err)
-        return of()
+        console.log('Register error:', err);
+        return of();
       })
-    )
+    );
   }
   login(email: string, password: string): Observable<UserCredential> {
     return from(
