@@ -1,0 +1,16 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+button {
+    padding: 10px; 
+    border-radius: 5px; 
+    cursor: pointer;
+}
+
+.primary {
+    @include primaryButtonStyle()
+}
+
+.secondary{
+    @include secondaryButtonStyle()
+}

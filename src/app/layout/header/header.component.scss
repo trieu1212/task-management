@@ -1,0 +1,18 @@
+@import '../../styles/mixin';
+@import '../../styles/variables';
+
+.header{
+    padding: $resetPadding;
+    background-color: $headerBgc;
+    @include flexTwoSide;
+
+    &__menu{
+        display: flex;
+        gap: 20px;
+
+        &__item:hover{
+            color: orange;
+            cursor: pointer;
+        }
+    }
+}

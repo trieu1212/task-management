@@ -1,0 +1,13 @@
+@mixin flexTwoSide() {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin primaryButtonStyle() {
+    background-color: blue; color: white;
+}
+
+@mixin secondaryButtonStyle(){
+    background-color: gray; color: white;
+}
