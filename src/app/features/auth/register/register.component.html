@@ -1,0 +1,29 @@
+<div class="container">
+    <mat-card class="container__card">
+        <mat-card-title class="container__card__title">Register</mat-card-title>
+        <mat-card-content>
+            <mat-form-field class="container__card__input">
+                <mat-label>Name</mat-label>
+                <input matInput [formControl]="registerForm.controls.name" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="container__card__input">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="registerForm.controls.email" type="email">
+            </mat-form-field>
+
+            <mat-form-field class="container__card__input">
+                <mat-label>Password</mat-label>
+                <input matInput [formControl]="registerForm.controls.password" type="password">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="container__card__button" (click)="register()">
+                Register
+            </button>
+            <p class="container__card__login">Already have account? <a href="/login">Login now!</a></p>
+            <p class="container__card__error" *ngIf="err">
+                {{err}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>

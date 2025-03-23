@@ -17,6 +17,21 @@
     }
 
     &__list{
-        @include gridColumnSetup(3)
+        @include gridColumnSetup();
+
+        &__item {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+
+            &__delete{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 }

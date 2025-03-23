@@ -2,19 +2,19 @@
     <div class="container__greeting">
         <span class="container__greeting__welcome">Welcome
             <span class="container__greeting__welcome__username">
-                {{user?.name}}
+                {{username}}
             </span>
         </span>
         <app-button label="Add new Project" type="secondary" (onClick)="openDialog('project')"></app-button>
     </div>
-    <div class="container__list" *ngFor="let project of projects">
-        <div class="container__list__item">
-            <div>
-                {{project.name}}
+    <mat-list role="list" class="container__list">
+        <mat-list-item appHighlight *ngFor="let project of projects" class="container__list__item" (click)="clickProject(project.id)">
+            <div class="container__list__item__delete">
+                <span>{{project.name}}</span>
+                <button mat-icon-button color="warn" (click)="deleteProject($event,project.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </div>
-            <div>
-                {{project.createdAt}}
-            </div>
-        </div>
-    </div>
+        </mat-list-item>
+    </mat-list>
 </div>

@@ -24,7 +24,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-
+import { MatListModule } from '@angular/material/list';
+import { RegisterComponent } from './features/auth/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { MatCardModule } from '@angular/material/card';
     LoginComponent,
     ProjectListComponent,
     HighlightDirective,
-    AddFormComponent
+    AddFormComponent,
+    RegisterComponent
   ],
   imports: [
     NgIf,
@@ -50,6 +52,7 @@ import { MatCardModule } from '@angular/material/card';
     MatAutocompleteModule,
     MatIconModule,
     MatCardModule,
+    MatListModule
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

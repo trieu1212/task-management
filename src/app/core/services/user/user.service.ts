@@ -12,7 +12,7 @@ export class UserService  {
   ) { }
 
   getUser(id: string) {
-    return this.apiService.getById(endpoint.USER, id)
+    return this.apiService.getById<IUser>(endpoint.USER, id)
   }
 
   getAllUser() {
