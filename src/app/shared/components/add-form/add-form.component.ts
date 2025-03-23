@@ -13,7 +13,7 @@ import { IUser } from '../../../core/models/user.interface';
 export class AddFormComponent implements OnInit {
   form!: FormGroup
   statusList = ['To Do', 'In Progress', 'Done'];
-  users: IUser[] = [] 
+  users: IUser[] = []
 
   constructor(
     private userService: UserService,
@@ -23,29 +23,24 @@ export class AddFormComponent implements OnInit {
       type: 'project' | 'task',
       formData: any
     }
-  ){}
+  ) { 
+    this.initializeForm()
+  }
 
   ngOnInit(): void {
-    this.getAllUser().subscribe(data => {
-      this.users = data;
-      this.initializeForm(); 
-    });
-  
-    if (!this.users.length) {
-      this.initializeForm();
-    }
+    this.getAllUser()
   }
 
   initializeForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       description: [''],
-      status: this.data.type === 'task' 
-        ? [this.data.formData?.status || 'To Do', Validators.required] 
-        : null, 
-      members: this.data.type === 'project' 
-        ? [this.data.formData?.members || []] 
-        : null, 
+      ...(this.data.type === 'task' && {
+        status: [this.data.formData?.status || 'To Do', Validators.required],
+      }),
+      ...(this.data.type === 'project' && {
+        members: [this.data.formData?.members || []],
+      }),
     });
   }
 
@@ -60,6 +55,8 @@ export class AddFormComponent implements OnInit {
   }
 
   getAllUser() {
-    return this.userService.getAllUser()
+    return this.userService.getAllUser().subscribe(data => {
+      this.users = data
+    })
   }
 }

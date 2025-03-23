@@ -37,4 +37,16 @@ export class ApiService {
   delete<T>(endpoint: string, id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${endpoint}/${id}.json`);
   }
+
+  getByFieldName<T extends Record<string, any>>(endpoint: string, field: keyof T, value: any): Observable<T[]> {
+    return this.http.get<{[key:string]: T}>(`${this.baseUrl}/${endpoint}.json`).pipe(
+      map(response => {
+        if(!response) return []
+        return Object.keys(response).map(key => ({
+          ...response[key],
+          id:key
+        })).filter(task => task[field] === value)
+      })
+    )
+  }
 }

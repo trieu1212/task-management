@@ -25,7 +25,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { TaskListComponent } from './features/task/task-list/task-list.component';
+import { FillterTaskPipe } from './shared/pipe/fillter-task.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +40,9 @@ import { RegisterComponent } from './features/auth/register/register.component';
     ProjectListComponent,
     HighlightDirective,
     AddFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    TaskListComponent,
+    FillterTaskPipe
   ],
   imports: [
     NgIf,
@@ -52,7 +59,9 @@ import { RegisterComponent } from './features/auth/register/register.component';
     MatAutocompleteModule,
     MatIconModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

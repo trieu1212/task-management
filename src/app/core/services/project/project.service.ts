@@ -19,4 +19,12 @@ export class ProjectService {
   addProject(data: Omit<IProject, 'id'>) {
     return this.apiService.add<IProject>(endpoint.PROJECT, data)
   }
+
+  deleteProject(id: string) {
+    return this.apiService.delete<IProject>(endpoint.PROJECT, id)
+  }
+
+  getDetailProject(id:string) {
+    return this.apiService.getById<IProject>(endpoint.PROJECT, id)
+  }
 }

@@ -81,6 +81,10 @@ export class ProjectListComponent implements OnInit {
   }
 
   deleteProject(event: Event, projectId: string) {
-
+    event.stopPropagation()
+    this.projectService.deleteProject(projectId).subscribe(data => {
+      alert('Delete project successfuly!')
+      this.getAllProject()
+    })
   }
 }
