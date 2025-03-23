@@ -72,6 +72,5 @@ import { EditTaskFormComponent } from './shared/components/edit-task-form/edit-t
     provideHttpClient(),
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
