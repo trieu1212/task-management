@@ -1,0 +1,22 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container{
+    padding: 10px;
+
+    &__greeting{
+        @include flexTwoSide();
+
+        &__welcome{
+            font-size: $textSizeNormal;
+
+            &__username{
+                font-weight: bold;
+            }
+        }
+    }
+
+    &__list{
+        @include gridColumnSetup(3)
+    }
+}

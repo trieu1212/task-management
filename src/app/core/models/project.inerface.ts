@@ -1,8 +1,10 @@
+import { IUser } from "./user.interface"
+
 export interface IProject {
     id: string
     name: string
     description: string
     ownerId: string
-    memberIds: string[]
+    members: IUser[]
     createdAt: Date
 }

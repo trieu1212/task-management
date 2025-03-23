@@ -1,14 +1,20 @@
 <div class="container">
     <div class="container__greeting">
-        <span>Welcome 
-            <span class="container__greeting__username">
+        <span class="container__greeting__welcome">Welcome
+            <span class="container__greeting__welcome__username">
                 {{user?.name}}
             </span>
         </span>
+        <app-button label="Add new Project" type="secondary" (onClick)="openDialog('project')"></app-button>
     </div>
     <div class="container__list" *ngFor="let project of projects">
         <div class="container__list__item">
-            
+            <div>
+                {{project.name}}
+            </div>
+            <div>
+                {{project.createdAt}}
+            </div>
         </div>
     </div>
 </div>

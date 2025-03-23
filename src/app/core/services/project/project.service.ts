@@ -16,5 +16,7 @@ export class ProjectService {
     return this.apiService.getAll<IProject>(endpoint.PROJECT)
   }
 
-
+  addProject(data: Omit<IProject, 'id'>) {
+    return this.apiService.add<IProject>(endpoint.PROJECT, data)
+  }
 }

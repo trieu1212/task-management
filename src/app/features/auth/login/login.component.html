@@ -1,20 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <div class="container">
-        <h1>
-            Login
-        </h1>
-        <form action="">
-            <label for="email">Email</label>
-            <input type="email">
-            
-        </form>
-    </div>
-</body>
-</html>
+<div class="container">
+    <mat-card class="container__card">
+        <mat-card-title class="container__card__title">Login</mat-card-title>
+        <mat-card-content>
+            <mat-form-field class="container__card__input">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="loginForm.controls.email" type="email">
+            </mat-form-field>
+
+            <mat-form-field class="container__card__input">
+                <mat-label>Password</mat-label>
+                <input matInput [formControl]="loginForm.controls.password" type="password">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="container__card__button" (click)="login()">
+                Login
+            </button>
+            <p class="container__card__register">Dont have account? <a href="/register">Register now!</a></p>
+            <p class="container__card__error" *ngIf="err">
+                {{err}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>

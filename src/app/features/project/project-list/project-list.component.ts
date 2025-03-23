@@ -3,6 +3,8 @@ import { ProjectService } from '../../../core/services/project/project.service';
 import { IProject } from '../../../core/models/project.inerface';
 import { UserService } from '../../../core/services/user/user.service';
 import { IUser } from '../../../core/models/user.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFormComponent } from '../../../shared/components/add-form/add-form.component';
 
 @Component({
   selector: 'app-project-list',
@@ -17,7 +19,8 @@ export class ProjectListComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +28,7 @@ export class ProjectListComponent implements OnInit {
     this.userId = user.id 
     if(this.userId) {
       this.userService.getUser(this.userId)
+      this.getAllProject()
     }   
   }
 
@@ -33,6 +37,36 @@ export class ProjectListComponent implements OnInit {
       next: (data) => {
         this.projects = data
       },
+    })
+  }
+
+  openDialog(type: 'project' | 'task') {
+    const dialogRef = this.dialog.open(AddFormComponent, {
+      width: '600px',
+      height: '400px',
+      data: {
+        type:type,
+        formData:{
+          
+        }
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        const prj:Omit<IProject,"id"> = {
+          name: result.name,
+          description:result.description || '',
+          members: result.members,
+          ownerId: this.userId || '',
+          createdAt: new Date()
+        }
+
+        this.projectService.addProject(prj).subscribe(data => {
+          alert('Add project successfully!')
+          this.getAllProject()
+        })
+      }
     })
   }
 }

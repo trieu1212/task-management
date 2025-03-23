@@ -11,7 +11,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getAll<T>(endpoint: string): Observable<T[]> {
-    return this.http.get<{[key: string]: T}>(`${this.baseUrl}/${endpoint}`).pipe(
+    return this.http.get<{[key: string]: T}>(`${this.baseUrl}/${endpoint}.json`).pipe(
       map(response => {
         if(!response) return []
         return Object.keys(response).map(key => ({

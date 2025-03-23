@@ -1,6 +1,7 @@
 import { Injectable} from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { endpoint } from '../../constant/endpoint';
+import { IUser } from '../../models/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +13,9 @@ export class UserService  {
 
   getUser(id: string) {
     return this.apiService.getById(endpoint.USER, id)
+  }
+
+  getAllUser() {
+    return this.apiService.getAll<IUser>(endpoint.USER)
   }
 }
