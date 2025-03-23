@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddFormComponent } from '../../../shared/components/add-form/add-form.component';
 import { Router } from '@angular/router';
 import { TaskService } from '../../../core/services/task/task.service';
-import { catchError, of, switchMap, tap } from 'rxjs';
+import { catchError, concatMap, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
@@ -71,9 +71,16 @@ export class ProjectListComponent implements OnInit {
           createdAt: new Date()
         }
 
-        this.projectService.addProject(prj).subscribe(data => {
-          alert('Add project successfully!')
-          this.getAllProject()
+        this.projectService.addProject(prj).pipe(
+          concatMap(res => this.userService.updateUserProjectCount(this.userId, res.name, 'add'))
+        ).subscribe({
+          next: () => {
+            alert('Add project successfully!')
+            this.getAllProject()
+          },
+          error: (err) => {
+            console.log(err)
+          }
         })
       }
     })
@@ -84,22 +91,42 @@ export class ProjectListComponent implements OnInit {
   }
 
   deleteProject(event: Event, projectId: string) {
-    event.stopPropagation()
-    const isConfirmed = window.confirm("Do you want to delete this project?")
-    if(isConfirmed) {
+    event.stopPropagation();
+    const isConfirmed = window.confirm("Do you want to delete this project?");
+    if (isConfirmed) {
       this.projectService.deleteProject(projectId).pipe(
-        switchMap(() => {
-          return this.taskService.deleteManyTasksWithProjectId(projectId)
+        concatMap(() => {
+          console.log('✅ Project deleted:', projectId);
+          return this.taskService.deleteManyTasksWithProjectId(projectId).pipe(
+            catchError(err => {
+              console.error('⚠️ Error deleting tasks:', err);
+              return of(null);
+            })
+          );
         }),
-        catchError(err => {
-          return of()
+        concatMap(() => {
+          console.log('✅ Deleting tasks done, updating user project count...');
+          return this.userService.updateUserProjectCount(this.userId, projectId, 'remove').pipe(
+            catchError(err => {
+              console.error('⚠️ Error updating user project count:', err);
+              return of(null);
+            })
+          );
         })
       ).subscribe({
         next: () => {
-          alert('Delete successfully!')
-          this.getAllProject()
+          console.log('✅ All steps completed!');
+          alert('Delete successfully!');
+          this.getAllProject();
+        },
+        error: (err) => {
+          console.error('❌ Error in subscription:', err);
+        },
+        complete: () => {
+          console.log('🎯 Process completed!');
         }
-      })
-    } 
+      });
+    }
   }
+  
 }

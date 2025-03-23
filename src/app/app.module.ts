@@ -31,6 +31,8 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { TaskListComponent } from './features/task/task-list/task-list.component';
 import { FillterTaskPipe } from './shared/pipe/fillter-task.pipe';
 import { EditTaskFormComponent } from './shared/components/edit-task-form/edit-task-form.component';
+import { ProfileComponent } from './features/user/profile/profile.component';
+import { EditProfileFormComponent } from './shared/components/edit-profile-form/edit-profile-form.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { EditTaskFormComponent } from './shared/components/edit-task-form/edit-t
     RegisterComponent,
     TaskListComponent,
     FillterTaskPipe,
-    EditTaskFormComponent
+    EditTaskFormComponent,
+    ProfileComponent,
+    EditProfileFormComponent
   ],
   imports: [
     NgIf,

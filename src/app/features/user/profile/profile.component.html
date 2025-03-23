@@ -1,0 +1,13 @@
+<div class="container">
+    <mat-card class="container__card">
+      <mat-card-content>
+        <div class="container__card__avatar">
+          <mat-icon class="container__card__avatar__icon">account_circle</mat-icon>
+        </div>
+        <h2>{{ user.name }}</h2>
+        <p>{{user.email}}</p>
+        <p>Projects: {{user?.projectIds?.length || 0}}</p>
+        <button mat-raised-button color="primary" (click)="openDialog()">Edit Profile</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
