@@ -31,7 +31,7 @@ export class ApiService {
   }
 
   update<T>(endpoint: string, id: string, data: Partial<T>): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${endpoint}/${id}.json`, data);
+    return this.http.patch<T>(`${this.baseUrl}/${endpoint}/${id}.json`, data);
   }
 
   delete<T>(endpoint: string, id: string): Observable<void> {

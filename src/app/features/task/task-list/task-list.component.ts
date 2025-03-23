@@ -81,11 +81,11 @@ export class TaskListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
         const task: Omit<ITask, 'id'> = {
-          name: result.title,
+          name: result.name,
           description: result.description || '',
           status: result.status || 'To Do',
           projectId: this.projectId,
-          assignee: this.user || "",
+          assignee: this.user,
           createdAt: new Date()
         }
 
@@ -108,7 +108,7 @@ export class TaskListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
         const task: Pick<ITask, "name" | "description" | "status"> = {
-          name: result.title,
+          name: result.name,
           description: result.description,
           status: result.status
         }
